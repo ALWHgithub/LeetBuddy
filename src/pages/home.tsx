@@ -1,4 +1,4 @@
-import DayCard from "../Components/DayCard";
+import DayCard from "../Components/DayCard/DayCard";
 
 function Home() {
     return (
