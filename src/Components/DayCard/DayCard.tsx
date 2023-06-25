@@ -1,30 +1,21 @@
 import ProblemCard from "../Problem/ProblemCard";
 import { Problem } from "../Problem/ProblemType";
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import './DayCard.css';
 import Modal from 'react-modal';
+import Popup from "../Popup/Popup";
 
-function DayCard( {date} : {date : Date}) {
+function DayCard(props : {date :Date}) {
     const [problems, setProblems] = useState(Array<Problem>)
-    const [inputName, setInputName] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     
-    const handleInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-      setInputName(event.target.value);
-    };
 
-    var today = date;
+    var today = props.date;
     var day = today.getDay();
     var month = today.getDate();
     
-    function addProblem(){
-      setProblems([...problems, { id: 1, title: inputName, url: "https://example.com", solved: false }]);
-      setIsOpen(false);
-    }
-
-    const closeModal = () => {
-      setIsOpen(false);
-    };
+    const openModal = () => {setIsOpen(true);}
+    useEffect(() => {Modal.setAppElement('#root');}, []);
 
 
     return (
@@ -37,16 +28,9 @@ function DayCard( {date} : {date : Date}) {
           </div>
           
           <div>
-            <button onClick={() => {setIsOpen(true)}}> Open Modal</button>
+            <button onClick={openModal}> Open Modal</button>
           </div>
-          <Modal isOpen={isOpen} onRequestClose={closeModal} className="modal-content">
-            <h2>Modal Content</h2>
-            <input type="text" value={inputName} onChange={handleInputChange} />
-            <button onClick={closeModal}>Close Modal</button>
-            <div>
-            <button onClick={addProblem}> Add problem</button>
-          </div>
-          </Modal>
+          {Popup(isOpen,setIsOpen,problems,setProblems)}
       </div>
       
     )
