@@ -3,7 +3,7 @@ import { Problem } from "../Problem/ProblemType";
 import React, { useState,useEffect} from 'react';
 import './Popup.css';
 import Modal from 'react-modal';
-
+import data from '../../data/leetCode.json'
 
 
 
@@ -12,12 +12,20 @@ function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<b
     useEffect(() => {Modal.setAppElement('#root');}, []);
     const closeModal = () => {setIsOpen(false);}
 
+    console.log(data.length);
+
     const handleInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
         setInputName(event.target.value);
     };
 
     const addProblem = () => {
-        setProblems([...problems, { id: 1, title: inputName, url: "https://example.com", solved: false }]);
+        const lo = 0;
+        const hi = data.length -1;
+        const randomNumber = Math.floor(Math.random() * (hi - lo + 1));
+
+        const randomProblem = data[randomNumber]
+
+        setProblems([...problems, { id: randomProblem.id, title: randomProblem.name, url: "https://example.com", solved: false }]);
         setIsOpen(false);
     }
 
