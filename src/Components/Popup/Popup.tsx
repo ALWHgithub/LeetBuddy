@@ -18,7 +18,19 @@ function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<b
         setInputName(event.target.value);
     };
 
-    const addProblem = () => {
+    const generateRandomProblem = () => {
+        const url = "https://leetcode.com/graphql?query={%20question(titleSlug:%20%22two-sum%22)%20{%20questionId%20questionFrontendId%20title%20titleSlug%20isPaidOnly%20difficulty%20likes%20dislikes%20}%20}"
+        fetch(url)
+        .then(response => {
+            
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    const addRandomProblem = () => {
+        generateRandomProblem();
         const lo = 0;
         const hi = data.length -1;
         const randomNumber = Math.floor(Math.random() * (hi - lo + 1));
@@ -34,7 +46,7 @@ function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<b
     <input type="text" value={inputName} onChange={handleInputChange} />
     <button onClick={closeModal}>Close Modal</button>
     <div>
-    <button onClick={addProblem}> Add problem</button>
+    <button onClick={addRandomProblem}>Add random problem</button>
   </div>
   </Modal>
 }
