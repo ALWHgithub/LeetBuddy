@@ -7,6 +7,8 @@ import data from '../../data/leetCode.json'
 
 
 
+
+
 function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, problems : Array<Problem>, setProblems : React.Dispatch<React.SetStateAction<Problem[]>>) {
     const [inputName, setInputName] = useState('');
     useEffect(() => {Modal.setAppElement('#root');}, []);
@@ -19,10 +21,18 @@ function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<b
     };
 
     const generateRandomProblem = () => {
-        fetch('http://localhost:3000/')
+
+        const dataToSend = {
+            // Your data to send to the server
+            key1: 'value1',
+            key2: 'value2',
+            // ...
+          };
+
+        fetch('http://localhost:3000/', {method: 'POST',headers: {'Content-Type': 'application/json'},body: JSON.stringify(dataToSend)})
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            console.log(data.data.question);
         })
         .catch(error => {
             console.error(error);
