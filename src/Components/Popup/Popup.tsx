@@ -19,13 +19,13 @@ function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<b
     };
 
     const generateRandomProblem = () => {
-        const url = "https://leetcode.com/graphql?query={%20question(titleSlug:%20%22two-sum%22)%20{%20questionId%20questionFrontendId%20title%20titleSlug%20isPaidOnly%20difficulty%20likes%20dislikes%20}%20}"
-        fetch(url)
-        .then(response => {
-            
+        fetch('http://localhost:3000/')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error(error);
         });
     }
 
