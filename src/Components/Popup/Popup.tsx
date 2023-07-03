@@ -13,41 +13,42 @@ function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<b
     const [inputName, setInputName] = useState('');
     useEffect(() => {Modal.setAppElement('#root');}, []);
     const closeModal = () => {setIsOpen(false);}
-
-    console.log(data.length);
-
     const handleInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
         setInputName(event.target.value);
     };
 
-    const generateRandomProblem = () => {
+    const generateRandomProblem = (): Problem => {
+        // fetch('http://localhost:3000/', {method: 'POST',headers: {'Content-Type': 'application/json'},body: JSON.stringify(dataToSend)})
+        // .then(response => response.json())
+        // .then(responseData => {
+        //     console.log(responseData)
+        //     return responseData;
+        // })
+        // .catch(error => {
+        //     console.error(error);
+        // });
 
-        const dataToSend = {
-            // Your data to send to the server
-            key1: 'value1',
-            key2: 'value2',
-            // ...
-          };
 
-        fetch('http://localhost:3000/', {method: 'POST',headers: {'Content-Type': 'application/json'},body: JSON.stringify(dataToSend)})
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.data.question);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+        var lo = 0;
+        var hi = data.length -1;
+        var randomNumber = Math.floor(Math.random() * (hi - lo + 1));
+        var randomProblem = data[randomNumber]
+
+        while(randomProblem.isPremium){
+            console.log("money")
+            lo = 0;
+            hi = data.length -1;
+            randomNumber = Math.floor(Math.random() * (hi - lo + 1));
+            randomProblem = data[randomNumber]
+        }
+
+        return randomProblem;  
     }
 
     const addRandomProblem = () => {
-        generateRandomProblem();
-        const lo = 0;
-        const hi = data.length -1;
-        const randomNumber = Math.floor(Math.random() * (hi - lo + 1));
+        const randomProblem: Problem = generateRandomProblem()
 
-        const randomProblem = data[randomNumber]
-
-        setProblems([...problems, { id: randomProblem.id, title: randomProblem.name, url: "https://example.com", solved: false }]);
+        setProblems([...problems, randomProblem]);
         setIsOpen(false);
     }
 
