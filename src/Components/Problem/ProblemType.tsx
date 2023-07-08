@@ -4,6 +4,7 @@ export interface Problem {
     difficulty : string;
     isPremium :boolean;
     type : string;
+    slug : string;
     //solved? : boolean;
   }
   

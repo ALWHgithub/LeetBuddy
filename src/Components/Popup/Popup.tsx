@@ -35,7 +35,6 @@ function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<b
         var randomProblem = data[randomNumber]
 
         while(randomProblem.isPremium){
-            console.log("money")
             lo = 0;
             hi = data.length -1;
             randomNumber = Math.floor(Math.random() * (hi - lo + 1));
