@@ -1,9 +1,8 @@
-import ProblemCard from "../Problem/ProblemCard";
-import { Problem } from "../Problem/ProblemType";
 import React, { useState,useEffect} from 'react';
 import './Popup.css';
 import Modal from 'react-modal';
 import data from '../../data/leetCode.json'
+import { Problem } from '../Problem/ProblemType';
 
 
 
@@ -13,31 +12,17 @@ function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<b
     const [inputName, setInputName] = useState('');
     useEffect(() => {Modal.setAppElement('#root');}, []);
     const closeModal = () => {setIsOpen(false);}
+    
     const handleInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
         setInputName(event.target.value);
     };
 
     const generateRandomProblem = (): Problem => {
-        // fetch('http://localhost:3000/', {method: 'POST',headers: {'Content-Type': 'application/json'},body: JSON.stringify(dataToSend)})
-        // .then(response => response.json())
-        // .then(responseData => {
-        //     console.log(responseData)
-        //     return responseData;
-        // })
-        // .catch(error => {
-        //     console.error(error);
-        // });
-
-
-        var lo = 0;
-        var hi = data.length -1;
-        var randomNumber = Math.floor(Math.random() * (hi - lo + 1));
+        var randomNumber = Math.floor(Math.random() * (data.length));
         var randomProblem = data[randomNumber]
 
-        while(randomProblem.isPremium){
-            lo = 0;
-            hi = data.length -1;
-            randomNumber = Math.floor(Math.random() * (hi - lo + 1));
+        while(randomProblem.isPremium){ // re-roll if question is premium
+            randomNumber = Math.floor(Math.random() * (data.length));
             randomProblem = data[randomNumber]
         }
 
@@ -46,7 +31,6 @@ function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<b
 
     const addRandomProblem = () => {
         const randomProblem: Problem = generateRandomProblem()
-
         setProblems([...problems, randomProblem]);
         setIsOpen(false);
     }
