@@ -1,5 +1,7 @@
 import DayCard from "../components/DayCard/DayCard";
 import SearchBar from "../components/ProblemSearchBar/ProblemSearchBar";
+
+
 function Home() {
     return (
       <div className="App">
