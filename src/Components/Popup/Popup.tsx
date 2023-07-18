@@ -4,10 +4,6 @@ import Modal from 'react-modal';
 import data from '../../data/leetCode.json'
 import { Problem } from '../Problem/ProblemType';
 
-
-
-
-
 function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, problems : Array<Problem>, setProblems : React.Dispatch<React.SetStateAction<Problem[]>>) {
     const [inputName, setInputName] = useState('');
     useEffect(() => {Modal.setAppElement('#root');}, []);
@@ -17,20 +13,33 @@ function Popup(isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<b
         setInputName(event.target.value);
     };
 
-    const generateRandomProblem = (): Problem => {
-        var randomNumber = Math.floor(Math.random() * (data.length));
-        var randomProblem = data[randomNumber]
+
+    const generateRandomProblem = async (): Promise<Problem> => {
+        const payload = {username : "ALWHleetcode"};
+        fetch('http://localhost:3000/solved', {method: 'POST',headers: {'Content-Type': 'application/json'},body: JSON.stringify(payload)})
+        .then(response => response.json())
+        .then(responseData => {
+            console.log(responseData["data"]["recentAcSubmissionList"])
+            return responseData;
+         })
+         .catch(error => {
+             console.error(error);
+         });
+
+        let randomNumber = Math.floor(Math.random() * (data.length));
+        let randomProblem = data[randomNumber]
 
         while(randomProblem.isPremium){ // re-roll if question is premium
             randomNumber = Math.floor(Math.random() * (data.length));
             randomProblem = data[randomNumber]
         }
-
+        
         return randomProblem;  
     }
 
-    const addRandomProblem = () => {
-        const randomProblem: Problem = generateRandomProblem()
+
+    const addRandomProblem = async () => {
+        const randomProblem: Problem = await generateRandomProblem()
         setProblems([...problems, randomProblem]);
         setIsOpen(false);
     }

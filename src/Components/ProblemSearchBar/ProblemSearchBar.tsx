@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import data from '../../data/leetCode.json'
 import {Problem} from "../Problem/ProblemType";
+import ProblemCard from '../Problem/ProblemCard';
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState(Array<Problem>);
@@ -8,8 +9,6 @@ const SearchBar = () => {
   const handleInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
     setSearchQuery(query);
-
-    // Call a function to search and update the matches
     searchMatches(query);
   };
 
@@ -34,7 +33,9 @@ const SearchBar = () => {
       />
       <ul>
         {matches.map((match) => (
-          <li key={match.id}>{match.name}</li>
+          <li key={match.id}>
+            <ProblemCard problem={match}/>
+          </li>
         ))}
       </ul>
     </div>

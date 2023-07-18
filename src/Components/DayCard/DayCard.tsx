@@ -10,9 +10,9 @@ function DayCard(props : {date :Date}) {
     const [isOpen, setIsOpen] = useState(false);
     
 
-    var today = props.date;
-    var day = today.getDay();
-    var month = today.getDate();
+    let today = props.date;
+    let day = today.getDay();
+    let month = today.getDate();
     
     const openModal = () => {setIsOpen(true);}
     useEffect(() => {Modal.setAppElement('#root');}, []);
@@ -23,7 +23,9 @@ function DayCard(props : {date :Date}) {
         <div>
           <p>{day + "/" + month}</p>
           {problems.map((item, index) => (
-          <div key={index}> {ProblemCard(item)}</div>
+          <li key={item.id}>
+           <ProblemCard problem={item}/>
+            </li>
           ))}
           </div>
           
