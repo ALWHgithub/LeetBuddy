@@ -1,15 +1,15 @@
 import { combineReducers,Reducer } from 'redux';
-import recentlySolvedReducer, { CounterState } from './recentlySolvedReducer'; // Assuming you have a separate reducer file for recentlySolved
+import solvedReducer, { solvedCounterState } from './recentlySolvedReducer'; // Assuming you have a separate reducer file for recentlySolved
 
 interface AppState {
-  counter: CounterState;
+  solved: solvedCounterState;
 }
 
 const rootReducer: Reducer<AppState> = combineReducers({
-  counter : recentlySolvedReducer,
+  solved  : solvedReducer,
 });
 
 
-
+export type {AppState};
 export default rootReducer;
 

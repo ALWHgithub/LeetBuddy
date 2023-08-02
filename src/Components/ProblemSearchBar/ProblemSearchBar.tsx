@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { SetStateAction, useState } from 'react';
 import data from '../../data/leetCode.json'
 import {Problem} from "../Problem/ProblemType";
-import ProblemCard from '../Problem/ProblemCard';
-const SearchBar = () => {
+import SearchedProblemCard from '../Problem/SearchedProblemCard';
+import { Dispatch } from 'redux';
+
+
+const SearchBar = (props : { addToList: React.Dispatch<React.SetStateAction<Problem[]>>, problems: Problem[]; }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState(Array<Problem>);
 
@@ -33,9 +36,9 @@ const SearchBar = () => {
       />
       <ul>
         {matches.map((match) => (
-          <li key={match.id}>
-            <ProblemCard problem={match}/>
-          </li>
+          <div key={match.id}>
+            <SearchedProblemCard problem={match} addToList={props.addToList}/>
+          </div>
         ))}
       </ul>
     </div>

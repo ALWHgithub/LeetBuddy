@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define the state interface
-interface CounterState {
-  count: number[];
+interface solvedCounterState {
+  solved: number[];
 }
 
 // Define the action types
@@ -24,27 +24,29 @@ interface DecrementAction {
 type CounterAction = IncrementAction | DecrementAction;
 
 // Define the initial state
-const initialState: CounterState = {
-  count: [],
+const initialState: solvedCounterState = {
+  solved: [],
 };
 
 // Define the reducer function
-const recentlySolvedReducer = (state: CounterState = initialState, action: CounterAction): CounterState => {
+const solvedReducer = (state: solvedCounterState = initialState, action: CounterAction): solvedCounterState => {
   switch (action.type) {
     case CounterActionTypes.PUSH:
-      state.count.push(action.value)
       return {
         ...state,
+        solved: [...state.solved, action.value], 
       };
     case CounterActionTypes.PULL:
-      state.count.pop()
+      const solvedCopy = [...state.solved];
+      solvedCopy.pop();
       return {
         ...state,
+        solved: solvedCopy,
       };
     default:
       return state;
   }
 };
 
-export type {CounterState}
-export default recentlySolvedReducer;
+export type {solvedCounterState}
+export default solvedReducer;
