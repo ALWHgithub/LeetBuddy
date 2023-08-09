@@ -11,6 +11,7 @@
   "dependencies": {
     "dotenv": "^16.3.1",
     "leetcode-api-ts": "^1.1.1",
+    "mongodb": "^5.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",

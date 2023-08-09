@@ -5,7 +5,7 @@ import SearchedProblemCard from '../Problem/SearchedProblemCard';
 import { Dispatch } from 'redux';
 
 
-const SearchBar = (props : { addToList: React.Dispatch<React.SetStateAction<Problem[]>>, problems: Problem[]; }) => {
+const SearchBar = (props : { addToList: (newProblem: Problem) => void, problems: Problem[]; }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [matches, setMatches] = useState(Array<Problem>);
 
@@ -37,7 +37,7 @@ const SearchBar = (props : { addToList: React.Dispatch<React.SetStateAction<Prob
       <ul>
         {matches.map((match) => (
           <div key={match.id}>
-            <SearchedProblemCard problem={match} addToList={props.addToList}/>
+            <SearchedProblemCard problem={match} addToList={() => {props.addToList(match)}}/>
           </div>
         ))}
       </ul>

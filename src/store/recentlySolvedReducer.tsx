@@ -32,6 +32,7 @@ const initialState: solvedCounterState = {
 const solvedReducer = (state: solvedCounterState = initialState, action: CounterAction): solvedCounterState => {
   switch (action.type) {
     case CounterActionTypes.PUSH:
+      fetch('http://localhost:3000/db', {method: 'POST',headers: {'Content-Type': 'application/json'},body: JSON.stringify({id : action.value})}).catch(error => {console.error(error);});
       return {
         ...state,
         solved: [...state.solved, action.value], 
